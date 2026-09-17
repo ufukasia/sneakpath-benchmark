@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Banded Parallel Greedy-Edge: reproduction package"
+message: "If you use this software or its measurements, please cite it."
+type: software
+authors:
+  - family-names: Asil
+    given-names: Ufuk
+    affiliation: "Ostim Technical University"
+repository-code: "https://github.com/ufukasia/sneakpath-benchmark"
+abstract: >-
+  Code, instances and measurements for a study on frame selection and spatial
+  partitioning in multi-vehicle routing over grid-structured fields. Contains
+  the method catalogue, the benchmark runner, two dashboards and 111 result
+  files covering the Waterloo VLSI and TSPLIB collections.
+keywords:
+  - travelling salesman problem
+  - min-max multiple TSP
+  - makespan
+  - spatial partitioning
+  - greedy edge
+  - VLSI
+license: MIT

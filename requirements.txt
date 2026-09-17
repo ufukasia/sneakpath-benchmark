@@ -1,0 +1,12 @@
+# Runtime for both interfaces.
+#
+# The dashboard (dashboard/server.py) and the headless runner need only numpy;
+# the Streamlit port adds streamlit/plotly/pandas.
+#
+# Platform note: streamlit depends on pyarrow, which has no win-arm64 wheels.
+# On ARM64 Windows build the environment from an x64 interpreter, e.g.
+#     py -3.11 -m venv .venv
+numpy>=1.24
+streamlit>=1.40
+plotly>=5.20
+pandas>=2.0

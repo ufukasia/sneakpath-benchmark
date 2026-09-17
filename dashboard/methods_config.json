@@ -1,0 +1,242 @@
+{
+ "hidden_methods": [],
+ "seeds": {
+  "ils": "repair_vnd"
+ },
+ "angles": {
+  "rsge_resource": "grid_theta",
+  "rgge_y": "rotation_strip",
+  "rgge_x": "rotation_strip",
+  "rsge_corridor": "grid_theta",
+  "rsge_budget": "grid_theta",
+  "rsge_fixed2": "grid_theta",
+  "pge_band_k2": "grid_theta",
+  "pge_band_k4": "grid_theta",
+  "pge_band_k8": "grid_theta",
+  "pgr_band_k2": "grid_theta",
+  "pgr_band_k4": "grid_theta",
+  "pgr_band_k8": "grid_theta"
+ },
+ "pool_repairs": {},
+ "ge_variants": {
+  "greedy_edge": "knn8_greedy"
+ },
+ "deleted_methods": [],
+ "clones": [
+  {
+   "id": "realign_ge8#2",
+   "base": "realign_ge8",
+   "choice": "manual:7.5"
+  },
+  {
+   "id": "realign_ge8#3",
+   "base": "realign_ge8",
+   "choice": "manual:37.5"
+  },
+  {
+   "id": "realign_strip#2",
+   "base": "realign_strip",
+   "choice": "manual:7.5"
+  },
+  {
+   "id": "realign_strip#3",
+   "base": "realign_strip",
+   "choice": "manual:37.5"
+  },
+  {
+   "id": "realign_hilbert#2",
+   "base": "realign_hilbert",
+   "choice": "manual:7.5"
+  },
+  {
+   "id": "realign_hilbert#3",
+   "base": "realign_hilbert",
+   "choice": "manual:37.5"
+  },
+  {
+   "id": "realign_morton#2",
+   "base": "realign_morton",
+   "choice": "manual:7.5"
+  },
+  {
+   "id": "realign_morton#3",
+   "base": "realign_morton",
+   "choice": "manual:37.5"
+  },
+  {
+   "id": "rgge_y#2",
+   "base": "rgge_y",
+   "choice": "zero"
+  },
+  {
+   "id": "rgge_x#2",
+   "base": "rgge_x",
+   "choice": "zero"
+  },
+  {
+   "id": "rsge_resource#2",
+   "base": "rsge_resource",
+   "choice": "zero"
+  },
+  {
+   "id": "rsge_corridor#2",
+   "base": "rsge_corridor",
+   "choice": "zero"
+  },
+  {
+   "id": "rsge_budget#2",
+   "base": "rsge_budget",
+   "choice": "zero"
+  },
+  {
+   "id": "rsge_fixed2#2",
+   "base": "rsge_fixed2",
+   "choice": "zero"
+  },
+  {
+   "id": "repair_vnd#2",
+   "base": "repair_vnd",
+   "choice": "strip"
+  },
+  {
+   "id": "repair_vnd#3",
+   "base": "repair_vnd",
+   "choice": "rsge_fixed2"
+  },
+  {
+   "id": "repair_vnd#4",
+   "base": "repair_vnd",
+   "choice": "realign_strip"
+  },
+  {
+   "id": "ils#2",
+   "base": "ils",
+   "choice": "rsge_fixed2"
+  },
+  {
+   "id": "ils#3",
+   "base": "ils",
+   "choice": "greedy_edge"
+  },
+  {
+   "id": "pge_band_k2#2",
+   "base": "pge_band_k2",
+   "choice": "zero"
+  },
+  {
+   "id": "pge_band_k2#3",
+   "base": "pge_band_k2",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "pge_band_k4#2",
+   "base": "pge_band_k4",
+   "choice": "zero"
+  },
+  {
+   "id": "pge_band_k4#3",
+   "base": "pge_band_k4",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "pge_band_k8#2",
+   "base": "pge_band_k8",
+   "choice": "zero"
+  },
+  {
+   "id": "pge_band_k8#3",
+   "base": "pge_band_k8",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "rsge_resource#3",
+   "base": "rsge_resource",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "rsge_corridor#3",
+   "base": "rsge_corridor",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "rsge_budget#3",
+   "base": "rsge_budget",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "rsge_fixed2#3",
+   "base": "rsge_fixed2",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "pgr_band_k2#2",
+   "base": "pgr_band_k2",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "pgr_band_k2#3",
+   "base": "pgr_band_k2",
+   "choice": "zero"
+  },
+  {
+   "id": "pgr_band_k2#4",
+   "base": "pgr_band_k2",
+   "choice": "manual:22.5"
+  },
+  {
+   "id": "pgr_band_k4#2",
+   "base": "pgr_band_k4",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "pgr_band_k4#3",
+   "base": "pgr_band_k4",
+   "choice": "zero"
+  },
+  {
+   "id": "pgr_band_k4#4",
+   "base": "pgr_band_k4",
+   "choice": "manual:22.5"
+  },
+  {
+   "id": "pgr_band_k8#2",
+   "base": "pgr_band_k8",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "pgr_band_k8#3",
+   "base": "pgr_band_k8",
+   "choice": "zero"
+  },
+  {
+   "id": "pgr_band_k8#4",
+   "base": "pgr_band_k8",
+   "choice": "manual:22.5"
+  },
+  {
+   "id": "repair_vnd#5",
+   "base": "repair_vnd",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "repair_two_opt#2",
+   "base": "repair_two_opt",
+   "choice": "strip"
+  },
+  {
+   "id": "repair_two_opt#3",
+   "base": "repair_two_opt",
+   "choice": "rotation_strip"
+  },
+  {
+   "id": "ils#4",
+   "base": "ils",
+   "choice": "strip"
+  },
+  {
+   "id": "ils#5",
+   "base": "ils",
+   "choice": "rotation_strip"
+  }
+ ]
+}

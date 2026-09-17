@@ -1,0 +1,9 @@
+# Streamlit gorsellestirme sayfasi.
+# DIKKAT: pyarrow'un win_arm64 tekerlegi YOK; ARM64 Windows'ta ortami x64
+# bir yorumlayicidan kurun:
+#     py -3.11 -m venv .venv
+#     .venv/Scripts/pip install -r streamlit_app/requirements.txt
+#     .venv/Scripts/streamlit run streamlit_app/app.py
+streamlit>=1.40
+plotly>=5.20
+numpy>=1.24

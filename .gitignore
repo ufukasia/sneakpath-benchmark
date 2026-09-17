@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.venv-*/
+logs/
+
+# Third-party solvers: academic licences, not redistributable (see README).
+bin/
+
+# Run-time checkpoints written next to the results.
+results/.*.ckpt.json
