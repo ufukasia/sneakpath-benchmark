@@ -1,7 +1,10 @@
 # Banded Parallel Greedy-Edge
 
-**Reproduction package for a study on frame selection and spatial partitioning in
-multi-vehicle routing over grid-structured fields.**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+**Reproduction package (`sneakpath-benchmark`) for a study on frame selection and
+spatial partitioning in min-max multi-vehicle routing over grid-structured fields:
+code, instances and measurements.**
 
 The study asks a narrow question with a practical consequence. When a fleet of *k*
 vehicles has to cover a field whose points sit on an integer lattice — a VLSI board,
@@ -16,13 +19,14 @@ constructor — it is a design decision that belongs to the partitioning.**
 
 ---
 
-## Live figure
+## Interactive figure
 
-The paper's Figure F0 runs live on Streamlit Community Cloud — pick an instance,
-change *k*, switch the partitioning strategy, and watch the three panels redraw:
-
-> **[→ open the live figure](https://share.streamlit.io/)** *(link added after the
-> first deploy; see [Deploying](#deploying-your-own-instance))*
+Figure F0 of the study is available as a single-page Streamlit app
+(`streamlit_app/app.py`): pick an instance, change *k* (2–16), switch the
+partitioning strategy (k-d median cut or 1-D band) and the improvement layer
+(none / VND / ILS), and the three panels redraw. It can be run locally (see
+[Quick start](#quick-start)) or deployed on Streamlit Community Cloud (see
+[Deploying your own instance](#deploying-your-own-instance)).
 
 It is a **single read-only page**: no runs, no administration, nothing to break.
 The tables, statistics and the benchmark runner live in the full dashboard you
@@ -118,11 +122,15 @@ administration) and the only interface that can *launch* runs:
 # http://localhost:7100
 ```
 
-**Headless run** — reproduce one instance from scratch:
+**Headless run** — run the benchmark on one instance:
 
 ```bash
 .venv/bin/python -m benchmark.run --sets kroA100
 ```
+
+The runner resumes by default: methods that already have a valid row in
+`results/<instance>.json` are not re-run. Pass `--force` (or delete the result
+file) to recompute everything.
 
 Both interfaces are bilingual (English / Turkish); the toggle is in the top bar of
 the dashboard and in the sidebar of the Streamlit page.
@@ -131,6 +139,11 @@ the dashboard and in the sidebar of the Streamlit page.
 > `win-arm64`. On an ARM64 Windows machine, create the environment from an x64
 > interpreter (`py -3.11 -m venv .venv`); the dashboard and the headless runner have
 > no such constraint and work on the native ARM64 build.
+
+`requirements.txt` covers both interfaces and the runner. The plotting scripts in
+`paper_experiments/` additionally need `matplotlib`, and the optional GPU method in
+`gpu_snake.py` needs `torch`; neither is listed in `requirements.txt`. Without
+`torch` the runner reports that method as unavailable.
 
 ---
 
@@ -144,6 +157,8 @@ frame_methods.py        rotated-frame constructors, angle sweeps
 rgge.py                 rotated-grid Greedy-Edge (RGGE)
 repair.py               local search: 2-opt, Or-opt, relocate, VND
 grid_theta.py           lattice angle detectors (comb scan, NN-direction, PCA)
+line_reassign_optimizer.py  point-relocation pass used by the repair layer
+gpu_snake.py            optional GPU multi-start strip + repair method (torch)
 tsplib_engine.py        TSPLIB parsing, EUC_2D / GEO, constructors
 external_solvers.py     LKH-3 / Concorde adapters (binaries not shipped, see below)
 snake_alt.py            strip / boustrophedon family
@@ -168,7 +183,9 @@ data_tsplib/            94 TSPLIB instances
 data_vlsi/              43 small Waterloo VLSI instances (n ≤ 3000)
 data/                   9 instances used by the classic quick-look set
 results/                111 result files, one per instance
-paper_experiments/      scripts that produced the paper's figures and tables
+paper_experiments/      scripts that produced the study's figures and tables
+CITATION.cff            software citation metadata
+LICENSE                 MIT licence
 ```
 
 ### Two interfaces, one source of truth
@@ -227,9 +244,9 @@ To enable them, obtain the binaries from their authors and place them in `bin/`:
 
 ---
 
-## Reproducing the paper's tables
+## Reproducing the tables
 
-Each table in the paper corresponds to a preset in the dashboard's Statistics tab
+Each table of the study corresponds to a preset in the dashboard's Statistics tab
 (*Paper tables*), which selects exactly the rows that table reports — including the
 seed and angle clones it was built from. Start the dashboard with
 `python dashboard/server.py` to use them.
@@ -248,16 +265,21 @@ seed and angle clones it was built from. Start the dashboard with
 To recompute rather than browse:
 
 ```bash
-python -m benchmark.run --sets xqf131              # one instance, all visible methods
-python -m benchmark.run --sets kroA100 rat783      # several
+python -m benchmark.run --sets xqf131                        # one instance, all methods
+python -m benchmark.run --sets kroA100,rat783                # several (comma-separated)
+python -m benchmark.run --sets kroA100 --methods strip,greedy_edge  # selected method keys
+python -m benchmark.run --sets xqf131 --quick --seeds 3      # short smoke test
 ```
 
 Results are written to `results/<instance>.json` and appear in both interfaces on
-the next reload.
+the next reload. Unless `--no-tables` is given, the runner also writes method and
+result tables to `results/tables/`. `python -m benchmark.run --help` lists the
+remaining options (`--all`, `--budget`, `--force`, `--construction-max-s`,
+`--exact-time`).
 
 ### Reading the frame race
 
-The Streamlit page is the paper's Figure F0, live. Pick an instance, then switch
+The Streamlit page is Figure F0 of the study, live. Pick an instance, then switch
 *Improvement* between **None**, **VND** and **ILS**. All three panels pass through
 the same improvement layer, which is the point: at construction the sparse frame (b)
 is usually ahead of the lattice-aligned frame (a), and after deep local search the
@@ -283,8 +305,9 @@ password only got in the way.
 
 Two things follow from that, and they are worth knowing:
 
-- `dashboard/server.py` binds to `localhost` by default, so nothing outside your
-  machine can reach it. If you pass `--host 0.0.0.0` to share it on a network,
+- `dashboard/server.py` binds to `localhost` (127.0.0.1 and ::1) on port 7100 by
+  default (`--port` or the `TSP_PORT` environment variable change the port), so
+  nothing outside your machine can reach it. If you pass `--host 0.0.0.0` to share it on a network,
   anyone who can reach the port can delete your results and start runs. Don't do
   that on an untrusted network.
 - Deleting is irreversible. `results/*.json` is the only copy of a run; re-running
@@ -311,16 +334,25 @@ interactively; the full collection is available in the local dashboard.
 
 ## Citation
 
-If you use this code or the measurements, please cite the accompanying paper. A
-`CITATION.cff` file is included so GitHub's *Cite this repository* button produces a
-correct entry; update it with the final bibliographic details once the paper appears.
+No paper based on this package has been published yet. If you use this code or the
+measurements, please cite the software itself: the included `CITATION.cff` makes
+GitHub's *Cite this repository* button produce the entry.
 
 ---
 
 ## Licence
 
-Code in this repository is released under the MIT Licence (see `LICENSE`).
+Code in this repository is released under the MIT Licence (see [`LICENSE`](LICENSE)),
+© 2026 Ufuk Asil.
 
 The bundled instance files are redistributed under the terms of their original
 collections (TSPLIB, Waterloo VLSI). LKH-3 and Concorde are not included; see
 [External solvers](#external-solvers).
+
+---
+
+## Contact
+
+Dr. Ufuk Asil — OSTİM Technical University, Ankara, Türkiye.
+Questions and bug reports: please open an issue on
+[GitHub](https://github.com/ufukasia/sneakpath-benchmark/issues).
